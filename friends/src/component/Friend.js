@@ -29,14 +29,14 @@ function Friend(props) {
         </NavLink>
         <NavLink to={`/friend-list/${friend.id}/email`}>email</NavLink>
       </nav>
-      <Route
+      {/* <Route
         exact
         path="/friend-list/:id"
         render={props => <FriendDescription {...props} friend={friend} />}
-      />
+      /> */}
       <Route
         path="/friend-list/:id/email"
-        render={props => <FriendShipping {...props} friend={friend} />}
+        render={props => <FriendEmail {...props} friend={friend} />}
       />
     </div>
   );
