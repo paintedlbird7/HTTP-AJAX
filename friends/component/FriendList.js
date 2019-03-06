@@ -6,3 +6,5 @@
 //     * for `delete`, add a `delete` button, or an `x` icon to each friend that will delete the friend when you click it. In the request url, pass the friend id as a URL parameter.
 
 
+// displays the list of friends coming from the server.
+
