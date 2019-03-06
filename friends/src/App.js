@@ -1,8 +1,16 @@
 import React, { Component } from 'react';
 import logo from './logo.svg';
 import './App.css';
+import Home from '../component/Home'
+
+import { BrowserRouter as Router, Route, NavLink } from "react-router-dom";
+
+import FriendsList from '../component/FriendsList';
+import Friend from '../component/Friend'
 
 import axios from 'axios';
+
+
 
 
 class App extends Component {
@@ -19,12 +27,12 @@ class App extends Component {
   componentDidMount() {
     console.log("CDM now running");
     // http://localhost:3333 is the address to the server doorstep
-    // /items is the "endpoint"
+    // /friends is the "endpoint"
     axios
-      .get("http://localhost:3333/items")
+      .get("http://localhost:3333/friends")
       .then(res => {
         console.log(res);
-        this.setState({ items: res.data });
+        this.setState({ friends: res.data });
       })
       .catch(err => {
         console.log(err);
@@ -32,9 +40,9 @@ class App extends Component {
       });
   }
 
-  // HTTP STEP IV - create an addItem function for our POST request
-  // Pass addItem to <ItemForm />
-  // addItem takes in an event, and the item object from the form for the POST
+  // HTTP STEP IV - create an addFriend function for our POST request
+  // Pass addFriend to <FriendForm />
+  // addFriend takes in an event, and the friend object from the form for the POST
   addFriend = (e, friend) => {
     e.preventDefault();
     axios
@@ -43,7 +51,7 @@ class App extends Component {
         this.setState({
           friends: res.data
         });
-        // HTTP STEP V - Clear data form in ItemForm and route to /item-list
+        // HTTP STEP V - Clear data form in FreindForm and route to /friend-list
         this.props.history.push("/friend-list");
       })
       .catch(err => {
@@ -51,11 +59,11 @@ class App extends Component {
       });
   };
 
-  // HTTP STEP VI - Create a deleteItem function that takes in an event and an id
-  // and makes a DELETE request to delete the item
+  // HTTP STEP VI - Create a deleteFriend function that takes in an event and an id
+  // and makes a DELETE request to delete the friend
   deleteFriend = (e, id) => {
     e.preventDefault();
-    console.log("now in deleteItem in App");
+    console.log("now in deleteFriend in App");
     axios
       .delete(`http://localhost:5000/friends${id}`)
       .then(res => {
@@ -71,26 +79,26 @@ class App extends Component {
   };
 
   // HTTP STEP VIII - create a function called setUpdateForm
-  // It will take in an event, and an item, and set that item
+  // It will take in an event, and an friend, and set that friend
   // to state, and then route user to the form route
   setUpdateForm = (e, friend) => {
     e.preventDefault();
     this.setState({
-      activeItem: friend
+      activeFriend: friend
     });
     this.props.history.push("/friend-form");
   };
 
-  // HTTP STEP VII - Create an updateItem function takes in an event and an item
-  // sets state with the response data, and clears out the activeItem on state
-  updateFriend = (e, item) => {
+  // HTTP STEP VII - Create an updateFriend function takes in an event and an friend
+  // sets state with the response data, and clears out the activeFriend on state
+  updateFriend = (e, friend) => {
     e.preventDefault();
     axios
       .put(`http://localhost:5000/friends${friend.id}`, friend)
       .then(res => {
         this.setState({
-          activeItem: null,
-          items: res.data
+          activeFriend: null,
+          friends: res.data
         });
         this.props.history.push("/friend-list");
       })
@@ -103,12 +111,12 @@ class App extends Component {
     return (
       <div className="App">
         <nav>
-          <h1 className="store-header">Lambda Friend List</h1>
+          <h1 className="friend-header">Lambda Friend List</h1>
           <div className="nav-links">
             <NavLink exact to="/">
               Home
             </NavLink>
-            <NavLink to="/friend-list">Shop</NavLink>
+            <NavLink to="/friend-list">Friends</NavLink>
           </div>
         </nav>
 
@@ -117,7 +125,7 @@ class App extends Component {
           exact
           path="/friend-list"
           render={props => (
-            <FriendList
+            <FriendsList
               {...props} // this is the same as below
               //               match={props.match}
               //               history={props.history}
@@ -130,7 +138,7 @@ class App extends Component {
           path="/friend-list/:id"
           render={props => <Friend {...props} friends={this.state.friends} />}
         />
-      </div>
+     </div>
     );
   }
 }
@@ -142,3 +150,5 @@ ReactDOM.render(
   </Router>,
   rootElement
 );
+
+export default App;

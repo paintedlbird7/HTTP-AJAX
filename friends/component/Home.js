@@ -8,3 +8,27 @@
 
 // displays the list of friends coming from the server.
 
+import React from 'react';
+
+function Home(props) {
+  // ({ match, history, location })
+  function navigateToFriend(e) {
+    e.preventDefault();
+    props.history.push('/friend-list');
+  }
+
+  return (
+    <div className="home-wrapper">
+      <img
+        className="home-image"
+        src="https://www.uncommongoods.com/images/category/fun-fullwidth.jpg"
+        alt=""
+      />
+      <button onClick={navigateToFriend} className="md-button friend-button">
+        See Friends list!
+      </button>
+    </div>
+  );
+}
+
+export default Home;
