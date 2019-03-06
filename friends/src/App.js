@@ -29,10 +29,10 @@ class App extends Component {
 
   componentDidMount() {
     console.log("CDM now running");
-    // http://localhost:3333 is the address to the server doorstep
+    // http://localhost:5000 is the address to the server doorstep
     // /friends is the "endpoint"
     axios
-      .get("http://localhost:3333/friends")
+      .get("http://localhost:5000/friends")
       .then(res => {
         console.log(res);
         this.setState({ friends: res.data });

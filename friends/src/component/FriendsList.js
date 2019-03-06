@@ -16,7 +16,7 @@ function FriendsList(props) {
         >
           <img
             className="friend-friend-image"
-            src={friend.imageUrl}
+            // src={friend.imageUrl}
             alt={friend.name}
           />
           <p>{friend.name}</p>
