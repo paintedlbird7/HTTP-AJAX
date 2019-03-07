@@ -15,12 +15,13 @@ function Friend(props) {
   return (
     <div className="friend-wrapper">
       <div className="friend-header">
-        <div className="friend-wrapper">
+        <div className="image-wrapper">
           <img src={friend.imageUrl} alt={friend.name} />
         </div>
         <div className="friend-title-wrapper">
           <h2>{friend.name}</h2>
           <h4>${friend.email}</h4>
+          <h4>${friend.age}</h4>
         </div>
       </div>
       <nav className="friend-sub-nav">
@@ -29,11 +30,11 @@ function Friend(props) {
         </NavLink>
         <NavLink to={`/friend-list/${friend.id}/email`}>email</NavLink>
       </nav>
-      {/* <Route
+      <Route
         exact
         path="/friend-list/:id"
-        render={props => <FriendDescription {...props} friend={friend} />}
-      /> */}
+        render={props => <FriendAge {...props} friend={friend} />}
+      />
       <Route
         path="/friend-list/:id/email"
         render={props => <FriendEmail {...props} friend={friend} />}

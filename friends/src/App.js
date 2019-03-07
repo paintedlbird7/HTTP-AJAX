@@ -195,9 +195,10 @@ class App extends Component {
 const AppWithRouter = withRouter(App);
 {/* // export default withRouter(Component); */}
 
+const rootElement = document.getElementById('root');
 ReactDOM.render(
   <Router>
-    <AppwithRouter />
+    <AppWithRouter />
   </Router>,
   rootElement
 );

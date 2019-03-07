@@ -30,15 +30,20 @@ import axios from 'axios';
 
 
 
-
-
-const rootElement = document.getElementById("root");
 ReactDOM.render(
-  <Router>
-    <App />
-  </Router>,
-  rootElement
-);
+    <Router>
+      <AppwithRouter />
+    </Router>,
+    rootElement
+  );
+
+// const rootElement = document.getElementById("root");
+// ReactDOM.render(
+//   <Router>
+//     <App />
+//   </Router>,
+//   rootElement
+// );
 
 
 

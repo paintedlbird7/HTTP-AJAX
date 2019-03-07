@@ -85,11 +85,11 @@ class FriendForm extends React.Component {
           <div className="baseline" />
 
           <input
-            type="number"
-            name="price"
+            type="string"
+            name="email"
             onChange={this.changeHandler}
-            placeholder="Price"
-            value={this.state.friend.price}
+            placeholder="Email"
+            value={this.state.friend.email}
           />
           <div className="baseline" />
 
@@ -104,10 +104,10 @@ class FriendForm extends React.Component {
 
           <input
             type="string"
-            name="description"
+            name="age"
             onChange={this.changeHandler}
-            placeholder="Description"
-            value={this.state.friend.description}
+            placeholder="age"
+            value={this.state.friend.age}
           />
           <div className="baseline" />
 
