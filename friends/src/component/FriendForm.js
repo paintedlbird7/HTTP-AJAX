@@ -8,10 +8,9 @@ class FriendForm extends React.Component {
   state = {
     friend: this.props.activeFriend || {
       name: '',
-      price: '',
+      age: '',
       imageUrl: '',
-      description: '',
-      shipping: ''
+      email: ''
     }
   };
 

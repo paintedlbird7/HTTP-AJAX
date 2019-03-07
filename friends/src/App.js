@@ -1,19 +1,29 @@
 import React, { Component } from 'react';
 import logo from './logo.svg';
 import './App.css';
+// Import Components here - (Usually these will be for Routes)
 import Home from './component/Home'
-
-import { BrowserRouter as Router, Route, NavLink } from "react-router-dom";
-
 import FriendsList from './component/FriendsList';
 import Friend from './component/Friend'
 
+import React from 'react'
 import ReactDOM from 'react-dom'
-
-
 import axios from 'axios';
+// STEP I Import and wrap App in <Router />
+// STEP II import <Route /> - Build component for your route
+// STEP IV import <Link /> - use Links to navigate inside our app
+import {
+  BrowserRouter as Router,
+  NavLink,
+  Route,
+  withRouter
+} from 'react-router-dom';
 
+// HTTP STEP III - Build a route for our Form
+import FriendForm from '../src/component/'
+// HTTP STEP I - remove data import, use axios to GET data from local server
 
+// import './styles.css';
 
 
 class App extends Component {
@@ -113,9 +123,13 @@ class App extends Component {
   render() {
     return (
       <div className="App">
+              {/* STEP IX - Use NavLink to add styling attributes to our nav links */}
         <nav>
           <h1 className="friend-header">Lambda Friend List</h1>
           <div className="nav-links">
+          <NavLink to="/friend-form">{`${
+              this.state.activeFriend ? 'Update' : 'Add'
+            } Friend`}</NavLink>
             <NavLink exact to="/">
               Home
             </NavLink>
@@ -123,35 +137,67 @@ class App extends Component {
           </div>
         </nav>
 
+
+        {/* STEP III - Add Routes for our App */}
         <Route exact path="/" component={Home} />
-        <Route
+        
+        {/* STEP VII - pass props to component being rendered with <Route /> */}
+        {/* Do not do inline rendering with the component prop - use the render prop! */}
+        <Route 
+        path="/friend-list"
           exact
-          path="/friend-list"
+          render={
+            props => <FriendList {...props} friends={this.state.friends} />      
+             // same as
+            //   <ItemList
+            //     history={props.history}
+            //     items={this.state.items}
+            //     location={props.location}
+            //     match={props.match}
+            //   />
+          }
+   />
+
+{/* STEP V - Use dynamic params to route to Item */}
+        {/* the ":" signifies that id is a dynamic parameter - is a banana name */
+        <Route 
+        path="/friend-list/:id"
           render={props => (
-            <FriendsList
-              {...props} // this is the same as below
-              //               match={props.match}
-              //               history={props.history}
-              //               location={props.location}
+            <Friend
+              {...props}
+              deleteFriend={this.deleteFriend}
               friends={this.state.friends}
+              setUpdateForm={this.setUpdateForm}
+              />
+              )}
+            />
+
+        <Route 
+          path="/friend-form"
+          render={props => (
+            <FriendForm
+              {...props}
+              activeFriend={this.state.activeFriend}
+              addFriend={this.addFriend}
+              updateFriend={this.updateFriend}
             />
           )}
         />
-        <Route
-          path="/friend-list/:id"
-          render={props => <Friend {...props} friends={this.state.friends} />}
-        />
-     </div>
+      </div>
     );
   }
 }
 
 
+{/* Use withRouter (HOC) to create a NEW component, pass in App, then render */} */}
+{/* // the NEW component in the ReactDOM.render function */}
+
+const AppWithRouter = withRouter(App);
+{/* // export default withRouter(Component); */}
+
 ReactDOM.render(
   <Router>
-    <App />
+    <AppwithRouter />
   </Router>,
-  document.getElementById('root')
+  rootElement
 );
-
-export default App;
