@@ -146,14 +146,6 @@ class App extends Component {
   }
 }
 
-// const rootElement = document.getElementById("root");
-// ReactDOM.render(
-//   <Router>
-//     <App />
-//   </Router>,
-//   rootElement
-// );
-
 
 ReactDOM.render(
   <Router>
